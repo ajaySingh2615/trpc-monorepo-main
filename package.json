@@ -1,0 +1,21 @@
+{
+  "name": "trpc-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "dotenv --turbo dev",
+    "build": "dotenv --turbo build",
+    "db:generate": "dotenv --turbo db:generate",
+    "db:migrate": "dotenv --turbo db:migrate"
+  },
+  "packageManager": "pnpm@11.0.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "turbo": "^2.9.14",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "dotenv-cli": "^11.0.0"
+  }
+}
