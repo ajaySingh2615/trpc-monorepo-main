@@ -10,6 +10,7 @@
     "./client": "./client/index.ts"
   },
   "dependencies": {
+    "@trpc/client": "^11.17.0",
     "@trpc/server": "^11.17.0",
     "zod": "^4.4.3"
   },
