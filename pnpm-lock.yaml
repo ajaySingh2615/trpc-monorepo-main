@@ -51,6 +51,22 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
 
+  packages/trpc:
+    dependencies:
+      '@trpc/server':
+        specifier: ^11.17.0
+        version: 11.17.0(typescript@6.0.3)
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@types/node':
+        specifier: ^25.9.1
+        version: 25.9.1
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+
 packages:
 
   '@colors/colors@1.6.0':
@@ -517,6 +533,12 @@ packages:
 
   '@so-ric/colorspace@1.1.6':
     resolution: {integrity: sha512-/KiKkpHNOBgkFJwu9sh48LkHSMYGyuTcSFK/qMBdnOAlrRJzRSXAOFB5qwzaVQuDl8wAvHVMkaASQDReTahxuw==}
+
+  '@trpc/server@11.17.0':
+    resolution: {integrity: sha512-jbAOUe0PpUTCYqziyu+8vYXZdDXPudZgnEhWCQ2NjKnVEjfE93RqHTt1oycZJv/HNf51YlRXfEEwSIAbb161rw==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=5.7.2'
 
   '@turbo/darwin-64@2.9.14':
     resolution: {integrity: sha512-t7QiPflaEyBE4oayeZtSmu4mEfjgIrcNlNNl1z1dmIVPqEdtA7+CfTf8d7KXsOGPh6aNgWjKxyvQg9uGfDQF+A==}
@@ -1084,6 +1106,10 @@ snapshots:
     dependencies:
       color: 5.0.3
       text-hex: 1.0.0
+
+  '@trpc/server@11.17.0(typescript@6.0.3)':
+    dependencies:
+      typescript: 6.0.3
 
   '@turbo/darwin-64@2.9.14':
     optional: true

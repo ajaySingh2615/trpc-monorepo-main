@@ -1,0 +1,20 @@
+{
+  "name": "@repo/trpc",
+  "private": true,
+  "main": "./server/index.ts",
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    "./server": "./server/index.ts",
+    "./client": "./client/index.ts"
+  },
+  "dependencies": {
+    "@trpc/server": "^11.17.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3"
+  }
+}
