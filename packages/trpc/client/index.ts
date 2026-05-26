@@ -1,11 +1,10 @@
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
+import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 
-import type { ServerRouter } from "../server";
+import { type ServerRouter } from "../server";
 
-export const trpcClient = createTRPCClient<ServerRouter>({
-  links: [
-    httpBatchLink({
-      url: "http://localhost:8000/trpc",
-    }),
-  ],
-});
+export type RouterOutputs = inferRouterOutputs<ServerRouter>;
+export type RouterInputs = inferRouterInputs<ServerRouter>;
+
+export type { ServerRouter } from "../server";
+
+export * from "@trpc/client";

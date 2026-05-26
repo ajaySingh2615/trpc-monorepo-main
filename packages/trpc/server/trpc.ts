@@ -1,36 +1,32 @@
 import { initTRPC, TRPCError } from "@trpc/server";
-import type { Content } from "./context";
+import { OpenApiMeta } from "trpc-to-openapi";
+
+import { createContext } from "./context";
 import { getAuthenticationCookie } from "./utils/cookie";
-import { userService } from "@repo/services";
+import { userService } from "./services";
 
-const t = initTRPC.context<Content>().create();
+export const tRPCContext = initTRPC
+  .meta<OpenApiMeta>()
+  .context<typeof createContext>()
+  .create({});
 
-const isAuthenticated = t.middleware(async ({ ctx, next }) => {
-  const token = getAuthenticationCookie(ctx.req);
-  if (!token) {
-    throw new TRPCError({
-      code: "UNAUTHORIZED",
-      message: "You must be logged in.",
-    });
+export const router = tRPCContext.router;
+
+export const publicProcedure = tRPCContext.procedure;
+
+export const authenticatedProcedure = tRPCContext.procedure.use(async options => {
+  const { ctx } = options;
+  const userToken = getAuthenticationCookie(ctx)
+  if (!userToken) {
+    throw new Error('user is not logged in')
   }
 
-  try {
-    const { id } = await userService.verifyAndDecodeUserToken(token);
-    return next({
-      ctx: {
-        ...ctx,
-        user: { id },
-      },
-    });
-  } catch (error) {
-    throw new TRPCError({
-      code: "UNAUTHORIZED",
-      message: "Invalid or expired token.",
-    });
-  }
-});
+  const { id } = await userService.verifyAndDecodeUserToken(userToken);
 
-export const router = t.router;
-export const publicProcedure = t.procedure;
-export const authenticatedProcedure = t.procedure.use(isAuthenticated);
-
+  return options.next({
+    ctx: {
+      ...ctx,
+      user: { id }
+    }
+  });
+})

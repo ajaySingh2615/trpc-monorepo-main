@@ -1,9 +1,15 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  PORT: z.string().default("8000"),
-  NODE_ENV: z.enum(["dev", "prod", "test"]).default("dev"),
-  BASE_URL: z.string().url(),
+  PORT: z.string().optional(),
+  NODE_ENV: z.enum(["development", "prod"]).default("development"),
+  BASE_URL: z.string().default("http://localhost:8000"),
 });
 
-export const env = envSchema.parse(process.env);
+function createEnv(env: NodeJS.ProcessEnv) {
+  const safeParseResult = envSchema.safeParse(env);
+  if (!safeParseResult.success) throw new Error(safeParseResult.error.message);
+  return safeParseResult.data;
+}
+
+export const env = createEnv(process.env);

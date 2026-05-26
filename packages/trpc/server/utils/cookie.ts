@@ -1,20 +1,54 @@
-import type { Request, Response } from "express";
+import type { CookieOptions, Response, Request } from 'express'
+import { TRPCContext } from '../context';
 
-const COOKIE_NAME = "auth_token";
+const ONE_MINUTE = 60 * 1000;  // milliseconds
+const ONE_HOUR = 60 * ONE_MINUTE;
+const ONE_DAY = 24 * ONE_HOUR;
+const ONE_MONTH = 30 * ONE_DAY;
+const ONE_YEAR = 12 * ONE_MONTH;
 
-export function setAuthenticationCookie(res: Response, token: string) {
-  res.cookie(COOKIE_NAME, token, {
+const defaultCookieOption: CookieOptions = {
+    path: '/',
     httpOnly: true,
-    secure: process.env.NODE_ENV === "prod",
-    sameSite: "lax",
-    maxAge: 1000 * 60 * 60 * 24 * 7,
-  });
+    secure: false,
+    sameSite: 'strict',
+    maxAge: ONE_YEAR, // One Year
 }
 
-export function getAuthenticationCookie(req: Request) {
-  return req.cookies?.[COOKIE_NAME] ?? null;
+export function createCookieFactory(res: Response) {
+    return function createCookie(
+        name: string,
+        value: string,
+        opts: CookieOptions = defaultCookieOption
+    ) {
+        res.cookie(name, value, opts)
+    }
 }
 
-export function clearAuthenticationCookie(res: Response) {
-  res.clearCookie(COOKIE_NAME);
+export function getCookieFactory(req: Request) {
+    return function getCookie(name: string) {
+        return req.cookies?.[name];
+    }
+}
+
+export function clearCookieFactory(res: Response) {
+    return function clearCookie(name: string) {
+        res.clearCookie(name);
+    }
+}
+
+// Authentication Cookie
+
+const AUTHENTICATION_COOKIE_NAME = 'authentication-token';
+
+export function setAuthenticationCookie(ctx: TRPCContext, accessToken: string) {
+    ctx.createCookie(AUTHENTICATION_COOKIE_NAME, accessToken);
+}
+
+export function getAuthenticationCookie(ctx: TRPCContext) {
+    return ctx.getCookie(AUTHENTICATION_COOKIE_NAME);
+}
+
+export function clearAuthenticationCookie(ctx: TRPCContext) {
+    ctx.clearCookie(AUTHENTICATION_COOKIE_NAME);
 }

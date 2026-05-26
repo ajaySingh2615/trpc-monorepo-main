@@ -1,7 +1,13 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  JWT_SECRET: z.string(),
+  JWT_SECRET: z.string().min(1).describe("Secret used to sign JWT access tokens"),
 });
 
-export const env = envSchema.parse(process.env);
+function createEnv(env: NodeJS.ProcessEnv) {
+  const safeParseResult = envSchema.safeParse(env);
+  if (!safeParseResult.success) throw new Error(safeParseResult.error.message);
+  return safeParseResult.data;
+}
+
+export const env = createEnv(process.env);

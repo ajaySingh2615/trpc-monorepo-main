@@ -1,25 +1,20 @@
 {
   "name": "@repo/trpc",
+  "version": "1.0.0",
   "private": true,
-  "main": "./server/index.ts",
-  "scripts": {
-    "check-types": "tsc --noEmit"
-  },
-  "exports": {
-    "./server": "./server/index.ts",
-    "./client": "./client/index.ts"
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/express": "^5.0.6",
+    "dotenv-cli": "^11.0.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@repo/services": "workspace:*",
-    "@trpc/client": "^11.17.0",
-    "@trpc/server": "^11.17.0",
-    "cookie-parser": "^1.4.7",
-    "zod": "^4.4.3"
-  },
-  "devDependencies": {
-    "@types/cookie-parser": "^1.4.10",
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.9.1",
-    "typescript": "^6.0.3"
+    "@trpc/client": "^11.8.1",
+    "@trpc/server": "^11.8.1",
+    "express": "^5.2.1",
+    "trpc-to-openapi": "^3.1.0",
+    "zod": "^4.3.5"
   }
 }

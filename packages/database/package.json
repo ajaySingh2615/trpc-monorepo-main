@@ -1,20 +1,24 @@
 {
   "name": "@repo/database",
-  "private": true,
-  "main": "./index.ts",
+  "version": "1.0.0",
   "scripts": {
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "check-types": "tsc --noEmit"
-  },
-  "dependencies": {
-    "drizzle-orm": "^0.45.2",
-    "postgres": "^3.4.9",
-    "zod": "^4.4.3"
+    "db:migrate": "dotenv -- drizzle-kit migrate",
+    "db:generate": "dotenv -- drizzle-kit generate",
+    "dev": "dotenv -- drizzle-kit studio"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
-    "drizzle-kit": "^0.31.10",
-    "typescript": "^6.0.3"
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/pg": "^8.16.0",
+    "dotenv-cli": "^11.0.0",
+    "drizzle-kit": "^0.31.8",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.45.1",
+    "pg": "^8.16.3",
+    "zod": "^4.3.5"
   }
 }
