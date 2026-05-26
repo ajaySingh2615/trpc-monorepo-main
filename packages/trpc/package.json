@@ -10,11 +10,14 @@
     "./client": "./client/index.ts"
   },
   "dependencies": {
+    "@repo/services": "workspace:*",
     "@trpc/client": "^11.17.0",
     "@trpc/server": "^11.17.0",
+    "cookie-parser": "^1.4.7",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/node": "^25.9.1",
     "typescript": "^6.0.3"
   }
