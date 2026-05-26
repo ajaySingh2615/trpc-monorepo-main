@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { logger } from "@repo/logger";
 import { serverRouter, createContext } from "@repo/trpc/server";
@@ -18,6 +19,8 @@ if (env.NODE_ENV !== "prod") {
 }
 
 app.use(express.json());
+app.use(cookieParser());
+
 
 // routes
 app.get("/", (req, res) => {
